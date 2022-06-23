@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\exception">
+      <UniqueIdentifier>{4c271325-79ec-4c3c-9280-9d308364a571}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BqArray.cpp">
@@ -21,9 +24,30 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BqException.cpp">
+      <Filter>源文件\exception</Filter>
+    </ClCompile>
+    <ClCompile Include="BqBitTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BqBirthday.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BqArray.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BqException.h">
+      <Filter>源文件\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="BqBitTool.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BqBirthday.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BqTools.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

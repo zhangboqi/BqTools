@@ -1,13 +1,14 @@
 #include <stdio.h>
-#include "BqArray.h"
+#include "BqTools.h"
+
 using namespace bq;
+
 int main() {
 
-	BqArray<int> bqArray(4);
-	bqArray.Push(1);
-	bqArray.Push(2);
-	bqArray.Push(3);
-	bqArray.Push(4);
-	printf("%d\n", bqArray.Contains(6) );
+	unsigned int a = 0x00;
+	BqBitTool::SettingBit(&a, 1, 30);
+	
+	unsigned int b = 0xFFFFFFFF;
+	BqBitTool::ClearBit(&b, 1, 30);
 	return 0;
 }

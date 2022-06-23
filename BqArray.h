@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "BqException.h"
 #ifndef _BQ_ARRAY_H
 #define _BQ_ARRAY_H
 namespace bq{
@@ -70,7 +71,7 @@ namespace bq{
 		}
 		int checkIndex(int index) {
 			if (index < 0 || index >= size)
-				throw - 1;
+				throw BqException(10001,"Index Out of Bounds");
 			return index;
 		}
 	public:
@@ -78,7 +79,7 @@ namespace bq{
 		T& operator [] (int index) {
 			// 下标越界
 			if (index > this->size) {
-				throw - 1;
+				throw BqException(10001, "Index Out of Bounds");
 			}
 			return this->buffer[index];
 		}
