@@ -10,9 +10,9 @@ namespace bq {
 		base64_table[63] = '/';
 
 		// 初始化Base64反向查找表
-		for (int i = 'A'; i < 'Z'; i++) reverse_table[i] = i - 'A';
-		for (int i = 'a'; i < 'z'; i++) reverse_table[i] = i - 'a' + 26;
-		for (int i = '0'; i < '9'; i++) reverse_table[i] = i - '0' + 52;
+		for (int i = 'A'; i <= 'Z'; i++) reverse_table[i] = i - 'A';
+		for (int i = 'a'; i <= 'z'; i++) reverse_table[i] = i - 'a' + 26;
+		for (int i = '0'; i <= '9'; i++) reverse_table[i] = i - '0' + 52;
 		reverse_table['+'] = 62;
 		reverse_table['/'] = 63;
 		reverse_table['='] = 0;
@@ -25,7 +25,7 @@ namespace bq {
 		// data[0]的低2位和data[1]的高4位
 		base64Str[1] = base64_table[ ((data[0] & 0x03) << 4) + (data[1] >> 4) ];
 		// data[1]的低4位和data[2]的高2位
-		base64Str[2] = base64_table[ (data[1] & 0x0F << 2) + (data[2] >> 6) ];
+		base64Str[2] = base64_table[ ((data[1] & 0x0F) << 2) + (data[2] >> 6) ];
 		// data[2]的低6位
 		base64Str[3] = base64_table[ data[2] & 0x3F ];
 	}
@@ -44,7 +44,7 @@ namespace bq {
 		data[2] = (p2 << 6) + p3;
 	}
 
-	void BqBase64::Encode(const char* data, int dataSize, char* base64Str) {
+	int BqBase64::Encode(const char* data, int dataSize, char* base64Str) {
 		// 按3个字符分组
 		int groups = dataSize / 3;
 		int remain = dataSize % 3;  // 分组之后剩余的字符，后面要凑够3个字符
@@ -69,13 +69,40 @@ namespace bq {
 
 		// 剩余1个字符则补上2个字符
 		if (remain == 1) {
+			const char t[3] = { dataPtr[0], 0,0 };
+			Encode(t, strPtr);
+			groups += 1;
+			strPtr[2] = '='; // 加一个等号
+			strPtr[3] = '='; // 加一个等号
 
 		}
-		
+		int str_size = groups* 4;
+		base64Str[str_size] =  '\0';
+		return str_size;
 	}
 
-	void BqBase64::Decode(const char* base64Str, int strSize, char* data) {
+	int BqBase64::Decode(const char* base64Str, int strSize, char* data) {
 
+		int groups = strSize / 4;
+		const char* strPtr = base64Str;
+		char* dataPtr = data;
+		for (int i = 0; i < groups; i++) {
+			// 4字节->3字节
+			Decode(strPtr, dataPtr);
+			strPtr += 4;
+			dataPtr += 3;
+		}
+		int data_size = groups * 3;
+		// 末尾第一个字符为等号
+		if (base64Str[strSize - 1] == '=' )
+		{
+			data_size -= 1;
+		}
+		// 末尾第二个字符为等号
+		if (base64Str[strSize - 2] == '=') {
+			data_size -= 1;
+		}
+		return data_size;
 	}
 
 }

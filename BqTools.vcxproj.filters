@@ -33,6 +33,12 @@
     <ClCompile Include="BqBirthday.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BqBase64.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BqHex.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BqArray.h">
@@ -48,6 +54,15 @@
       <Filter>源文件</Filter>
     </ClInclude>
     <ClInclude Include="BqTools.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BqBase64.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BqTest.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BqHex.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

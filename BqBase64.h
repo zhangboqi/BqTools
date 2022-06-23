@@ -15,9 +15,9 @@ namespace bq {
 		/*4×Ö·û->3×Ö½Ú*/
 		void Decode(const char* base64Str, char* data);
 		/*±àÂë*/
-		void Encode(const char* data, int dataSize, char* base64Str);
+		int Encode(const char* data, int dataSize, char* base64Str);
 		/*½âÂë*/
-		void Decode(const char* base64Str, int strSize, char* data);
+		int Decode(const char* base64Str, int strSize, char* data);
 	};
 }
 #endif

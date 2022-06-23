@@ -128,17 +128,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BqArray.cpp" />
+    <ClCompile Include="BqBase64.cpp" />
     <ClCompile Include="BqBirthday.cpp" />
     <ClCompile Include="BqBitTool.cpp" />
     <ClCompile Include="BqException.cpp" />
+    <ClCompile Include="BqHex.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BqArray.h" />
+    <ClInclude Include="BqBase64.h" />
     <ClInclude Include="BqBirthday.h" />
     <ClInclude Include="BqBitTool.h" />
     <ClInclude Include="BqException.h" />
+    <ClInclude Include="BqHex.h" />
     <ClInclude Include="BqTools.h" />
+    <ClInclude Include="BqTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
