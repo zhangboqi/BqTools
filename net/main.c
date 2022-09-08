@@ -60,6 +60,8 @@ void test3(){
 }
 int main(int argc, char** args){
 
-    
+    // test1();
+    // test2();
+    // test3();
     return 0;
 }

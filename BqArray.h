@@ -10,22 +10,22 @@ namespace bq{
 	class BqArray {
 
 	public:
-		// ¹¹Ôìº¯Êı£¬³õÊ¼ÈİÁ¿16
+		// æ„é€ å‡½æ•°ï¼Œåˆå§‹å®¹é‡16
 		BqArray(int capacity = 16) :capacity(capacity), buffer(new T[capacity]), size(0) {
 		}
-		// Îö¹¹º¯Êı
+		// ææ„å‡½æ•°
 		~BqArray() {
 			delete [] this->buffer;
 		}
 	public:
-		int capacity; // ÈİÁ¿
-		int size; // ´óĞ¡
-		int* buffer; // Êı¾İbuffer
-		const int loadFactor = 1.5; // À©ÈİµÄ±¶Êı£¬Ä¬ÈÏ1.5±¶
+		int capacity; // å®¹é‡
+		int size; // å¤§å°
+		int* buffer; // æ•°æ®buffer
+		const int loadFactor = 1.5; // æ‰©å®¹çš„å€æ•°ï¼Œé»˜è®¤1.5å€
 	public:
-		/* ·ÅÈëÔªËØ */
+		/* æ”¾å…¥å…ƒç´  */
 		void Push(double value) {
-			// ´ïµ½×î´óÈİÁ¿£¬À©Èİ
+			// è¾¾åˆ°æœ€å¤§å®¹é‡ï¼Œæ‰©å®¹
 			if (this->size >= this->capacity) {
 				Resize();
 			}
@@ -42,7 +42,7 @@ namespace bq{
 		bool Contains(T o) {
 			return indexOf(o) >= 0;
 		}
-		/*·µ»Ø°üº¬ÔªËØµÄË÷Òı£¬²»´æÔÚ·µ»Ø-1*/
+		/*è¿”å›åŒ…å«å…ƒç´ çš„ç´¢å¼•ï¼Œä¸å­˜åœ¨è¿”å›-1*/
 		int indexOf(T o) {
 			for (int i = 0; i < this->size; i++) {
 				if (this->buffer[i] == o) {
@@ -60,7 +60,7 @@ namespace bq{
 			return buffer[index];
 		}
 	private:
-		/* À©Èİ */
+		/* æ‰©å®¹ */
 		void Resize() {
 			int newCapacity = this->capacity * this->loadFactor;
 			T* copyBuffer = new T[newCapacity];
@@ -75,9 +75,9 @@ namespace bq{
 			return index;
 		}
 	public:
-		/*ÖØÔØ[]²Ù×÷·û*/
+		/*é‡è½½[]æ“ä½œç¬¦*/
 		T& operator [] (int index) {
-			// ÏÂ±êÔ½½ç
+			// ä¸‹æ ‡è¶Šç•Œ
 			if (index > this->size) {
 				throw BqException(10001, "Index Out of Bounds");
 			}

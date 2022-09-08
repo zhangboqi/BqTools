@@ -10,7 +10,7 @@ namespace bq {
 
 	void BqBitTool::ClearBit(unsigned int* data, unsigned char start,  int end)
 	{	
-		// ×¢Òâ£¬32Î»Êý²»Ö§³Ö×óÒÆ32Î»£¬»áÓÐÎÊÌâ 
+		// æ³¨æ„ï¼Œ32ä½æ•°ä¸æ”¯æŒå·¦ç§»32ä½ï¼Œä¼šæœ‰é—®é¢˜ 
 		unsigned int mask = (end >=31 ? 0 : (0xFFFFFFFF << end + 1)) + (start <= 0 ? 0 : 0xFFFFFFFF >> 32 - start);
 		*data &= mask;
 	}

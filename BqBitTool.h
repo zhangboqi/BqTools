@@ -5,11 +5,11 @@
 namespace bq {
 	class BqBitTool {
 	public:
-		/*¼ì²éµÚi¸öbitÎ»ÊÇ·ñÎª1, iÎª0-31*/
+		/*æ£€æŸ¥ç¬¬iä¸ªbitä½æ˜¯å¦ä¸º1, iä¸º0-31*/
 		static bool CheckBit(unsigned int data,unsigned char i);
-		/*Êı¾İÎªÇåÁã,startºÍendÎª0-31µÄbitÎ»Ë÷Òı*/
+		/*æ•°æ®ä¸ºæ¸…é›¶,startå’Œendä¸º0-31çš„bitä½ç´¢å¼•*/
 		static void ClearBit(unsigned int* data, unsigned char start,  int end);
-		/*Êı¾İÎ»ÖÃ1,startºÍendÎª0-31µÄbitÎ»Ë÷Òı*/
+		/*æ•°æ®ä½ç½®1,startå’Œendä¸º0-31çš„bitä½ç´¢å¼•*/
 		static void SettingBit(unsigned int* data, unsigned char start, unsigned char end);
 	};
 }

@@ -2,14 +2,14 @@
 
 namespace bq {
 	BqBase64::BqBase64() {
-		// ³õÊ¼»¯Base64²éÕÒ±í
+		// åˆå§‹åŒ–Base64æŸ¥æ‰¾è¡¨
 		for (int i = 0; i < 26; i++) base64_table[i] = 'A' + i;
 		for (int i = 0; i < 26; i++) base64_table[i + 26] = 'a' + i;
 		for (int i = 0; i < 10; i++) base64_table[i + 52] = '0' + i;
 		base64_table[62] = '+';
 		base64_table[63] = '/';
 
-		// ³õÊ¼»¯Base64·´Ïò²éÕÒ±í
+		// åˆå§‹åŒ–Base64åå‘æŸ¥æ‰¾è¡¨
 		for (int i = 'A'; i <= 'Z'; i++) reverse_table[i] = i - 'A';
 		for (int i = 'a'; i <= 'z'; i++) reverse_table[i] = i - 'a' + 26;
 		for (int i = '0'; i <= '9'; i++) reverse_table[i] = i - '0' + 52;
@@ -20,13 +20,13 @@ namespace bq {
 	}
 
 	void BqBase64::Encode(const char* data, char* base64Str) {
-		// data[0]µÄ¸ß6Î»
+		// data[0]çš„é«˜6ä½
 		base64Str[0] = base64_table[ data[0] >> 2 ];
-		// data[0]µÄµÍ2Î»ºÍdata[1]µÄ¸ß4Î»
+		// data[0]çš„ä½2ä½å’Œdata[1]çš„é«˜4ä½
 		base64Str[1] = base64_table[ ((data[0] & 0x03) << 4) + (data[1] >> 4) ];
-		// data[1]µÄµÍ4Î»ºÍdata[2]µÄ¸ß2Î»
+		// data[1]çš„ä½4ä½å’Œdata[2]çš„é«˜2ä½
 		base64Str[2] = base64_table[ ((data[1] & 0x0F) << 2) + (data[2] >> 6) ];
-		// data[2]µÄµÍ6Î»
+		// data[2]çš„ä½6ä½
 		base64Str[3] = base64_table[ data[2] & 0x3F ];
 	}
 
@@ -45,35 +45,35 @@ namespace bq {
 	}
 
 	int BqBase64::Encode(const char* data, int dataSize, char* base64Str) {
-		// °´3¸ö×Ö·û·Ö×é
+		// æŒ‰3ä¸ªå­—ç¬¦åˆ†ç»„
 		int groups = dataSize / 3;
-		int remain = dataSize % 3;  // ·Ö×éÖ®ºóÊ£ÓàµÄ×Ö·û£¬ºóÃæÒª´Õ¹»3¸ö×Ö·û
+		int remain = dataSize % 3;  // åˆ†ç»„ä¹‹åå‰©ä½™çš„å­—ç¬¦ï¼Œåé¢è¦å‡‘å¤Ÿ3ä¸ªå­—ç¬¦
 
 		const char* dataPtr = data;
 		char* strPtr = base64Str; 
 		
 		for (int i = 0; i < groups; i++) {
-			// 3×Ö½Ú->4×Ö½Ú
+			// 3å­—èŠ‚->4å­—èŠ‚
 			Encode(dataPtr, strPtr);
 			dataPtr += 3;
 			strPtr += 4;
 		}
 
-		// Ê£Óà2¸ö×Ö·ûÔò²¹ÉÏ1¸ö×Ö·û
+		// å‰©ä½™2ä¸ªå­—ç¬¦åˆ™è¡¥ä¸Š1ä¸ªå­—ç¬¦
 		if (remain == 2) {
 			const char t[3] = {dataPtr[0], dataPtr[1], 0};
 			Encode(t, strPtr);
 			groups += 1;
-			strPtr[3] = '='; // ¼ÓÒ»¸öµÈºÅ
+			strPtr[3] = '='; // åŠ ä¸€ä¸ªç­‰å·
 		}
 
-		// Ê£Óà1¸ö×Ö·ûÔò²¹ÉÏ2¸ö×Ö·û
+		// å‰©ä½™1ä¸ªå­—ç¬¦åˆ™è¡¥ä¸Š2ä¸ªå­—ç¬¦
 		if (remain == 1) {
 			const char t[3] = { dataPtr[0], 0,0 };
 			Encode(t, strPtr);
 			groups += 1;
-			strPtr[2] = '='; // ¼ÓÒ»¸öµÈºÅ
-			strPtr[3] = '='; // ¼ÓÒ»¸öµÈºÅ
+			strPtr[2] = '='; // åŠ ä¸€ä¸ªç­‰å·
+			strPtr[3] = '='; // åŠ ä¸€ä¸ªç­‰å·
 
 		}
 		int str_size = groups* 4;
@@ -87,18 +87,18 @@ namespace bq {
 		const char* strPtr = base64Str;
 		char* dataPtr = data;
 		for (int i = 0; i < groups; i++) {
-			// 4×Ö½Ú->3×Ö½Ú
+			// 4å­—èŠ‚->3å­—èŠ‚
 			Decode(strPtr, dataPtr);
 			strPtr += 4;
 			dataPtr += 3;
 		}
 		int data_size = groups * 3;
-		// Ä©Î²µÚÒ»¸ö×Ö·ûÎªµÈºÅ
+		// æœ«å°¾ç¬¬ä¸€ä¸ªå­—ç¬¦ä¸ºç­‰å·
 		if (base64Str[strSize - 1] == '=' )
 		{
 			data_size -= 1;
 		}
-		// Ä©Î²µÚ¶ş¸ö×Ö·ûÎªµÈºÅ
+		// æœ«å°¾ç¬¬äºŒä¸ªå­—ç¬¦ä¸ºç­‰å·
 		if (base64Str[strSize - 2] == '=') {
 			data_size -= 1;
 		}

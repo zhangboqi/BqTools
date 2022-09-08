@@ -6,17 +6,17 @@ namespace bq {
 	public :
 		BqBase64();
 	private :
-		char base64_table[64]; // 64½øÖÆ²éÑ¯±í
-		char reverse_table[128]; // 64½øÖÆ·´Ïò²éÑ¯±í£¬²Î¿¼¡¶C/C++Ñ§Ï°Ö¸ÄÏ¡·²¹³äÆª¡°¾²Ì¬±í²éÕÒ·¨¡±
+		char base64_table[64]; // 64è¿›åˆ¶æŸ¥è¯¢è¡¨
+		char reverse_table[128]; // 64è¿›åˆ¶åå‘æŸ¥è¯¢è¡¨ï¼Œå‚è€ƒã€ŠC/C++å­¦ä¹ æŒ‡å—ã€‹è¡¥å……ç¯‡â€œé™æ€è¡¨æŸ¥æ‰¾æ³•â€
 
 	public:
-		/*3×Ö½Ú->4×Ö·û*/
+		/*3å­—èŠ‚->4å­—ç¬¦*/
 		void Encode(const char* data, char* base64Str);
-		/*4×Ö·û->3×Ö½Ú*/
+		/*4å­—ç¬¦->3å­—èŠ‚*/
 		void Decode(const char* base64Str, char* data);
-		/*±àÂë*/
+		/*ç¼–ç */
 		int Encode(const char* data, int dataSize, char* base64Str);
-		/*½âÂë*/
+		/*è§£ç */
 		int Decode(const char* base64Str, int strSize, char* data);
 	};
 }
