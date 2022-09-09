@@ -31,6 +31,12 @@ int main(int argc, char * args[]){
         fprintf(stderr,"socket error:%s\n",strerror(errno));
         return 1;
     }
+    int reuse=1;
+    status = setsockopt(sockfd,SOL_SOCKET,SO_REUSEADDR,&reuse,sizeof reuse);
+    if(status == -1){
+        fprintf(stderr,"socket error:%s\n",strerror(errno));
+        return 1;
+    }
     status = bind(sockfd, servinfo->ai_addr, servinfo->ai_addrlen);
     if (status == -1){
         fprintf(stderr,"socket error:%s\n",strerror(errno));
@@ -43,7 +49,20 @@ int main(int argc, char * args[]){
         return 1;
     }
     addr_size = sizeof their_addr;
+
     newfd = accept(sockfd, (struct sockaddr *)&their_addr, &addr_size);
+    char *msg = "Server: Hello Client!";
+    int bytes_sent = 0;
+    int len = strlen(msg);
+    int remained;
+    do{
+        remained = len - bytes_sent;
+        if (remained > 0){
+
+            bytes_sent += send(newfd, msg + bytes_sent, len - bytes_sent, 0);
+        }
+    }while(remained);
+
 
     return 0;
 }
