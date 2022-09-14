@@ -4,6 +4,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <sys/types.h>
+#include <unistd.h>
 #include <netdb.h>
 #include <errno.h>
 int main(int argc, char * args[]){
@@ -12,8 +13,9 @@ int main(int argc, char * args[]){
     struct addrinfo *servinfo;
     int status;
     int sockfd,newfd;
-    socklen_t addr_size;
-    struct sockaddr_storage their_addr;
+    struct sockaddr_storage peer_addr;
+    socklen_t peer_addr_len = sizeof peer_addr;
+    char peer_addr_str[INET6_ADDRSTRLEN];
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family=AF_UNSPEC;
@@ -43,14 +45,23 @@ int main(int argc, char * args[]){
         return 1;
     }
 
-    status = listen(sockfd,20);
+    status = listen(sockfd, 20);
     if (status == -1){
         fprintf(stderr,"socket error:%s\n",strerror(errno));
         return 1;
     }
-    addr_size = sizeof their_addr;
+    
 
-    newfd = accept(sockfd, (struct sockaddr *)&their_addr, &addr_size);
+    newfd = accept(sockfd, (struct sockaddr *)&peer_addr, &peer_addr_len);
+    
+
+    if(peer_addr.ss_family == AF_INET){
+        struct sockaddr_in *peer_addr_in = (struct sockaddr_in*)&peer_addr;
+        inet_ntop(AF_INET, &(peer_addr_in->sin_addr), peer_addr_str, sizeof peer_addr_str);
+        printf("peer addr : %s\n",peer_addr_str);
+    }
+
+    // 发送消息给对端
     char *msg = "Server: Hello Client!";
     int bytes_sent = 0;
     int len = strlen(msg);
@@ -58,11 +69,12 @@ int main(int argc, char * args[]){
     do{
         remained = len - bytes_sent;
         if (remained > 0){
-
-            bytes_sent += send(newfd, msg + bytes_sent, len - bytes_sent, 0);
+            bytes_sent += send(newfd, msg + bytes_sent, remained, 0);
+            printf("发送的字节数: %d,剩余的字节数：%d\n",bytes_sent,len - bytes_sent);
         }
-    }while(remained);
-
-
+    } while(remained);
+     FILE *a;
+    shutdown(sockfd,2);
+    close(sockfd);
     return 0;
 }
