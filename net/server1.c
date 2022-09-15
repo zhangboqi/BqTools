@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <errno.h>
+
+#define PORT "3490"
 int main(int argc, char * args[]){
 
     struct addrinfo hints;
@@ -21,7 +23,7 @@ int main(int argc, char * args[]){
     hints.ai_family=AF_UNSPEC;
     hints.ai_socktype=SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;     // fill in my IP for me
-    status = getaddrinfo(NULL, "3490", &hints, &servinfo);
+    status = getaddrinfo(NULL, PORT, &hints, &servinfo);
     // 0 if success, or one of the following nonzero error codes
     if(status != 0){
         fprintf(stderr,"getaddrinfo error: %s\n",gai_strerror(status));
